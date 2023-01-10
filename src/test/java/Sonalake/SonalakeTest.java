@@ -11,5 +11,6 @@ public class SonalakeTest extends BaseSeleniumTest {
     public void checkFirstCalculationTest(){
         MainPage mainPage = new MainPage();
         mainPage.checkFirstCalculation();
+        mainPage.checkCosinusCalculation();
     }
 }

@@ -9,10 +9,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import readProperties.ConfigProvider;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class MainPage extends BaseSeleniumPage {
+public class MainPage<numOfResult> extends BaseSeleniumPage {
 
     //Numbers buttons:
     @FindBy(xpath = "//button[@value = 'consent']")
@@ -49,28 +50,58 @@ public class MainPage extends BaseSeleniumPage {
     private WebElement BtnMinus; //minus "-" button
     @FindBy(id = "BtnPlus")
     private WebElement BtnPlus; //plus "+" button
+    @FindBy(id = "BtnCos")
+    private WebElement BtnCos; //cosinus "cos" button
+    @FindBy(id = "BtnPi")
+    private WebElement BtnPi; //"pi" button
+    @FindBy(id = "BtnClear")
+    private WebElement BtnClear; // operator Clear "C" button
     @FindBy(id = "BtnCalc")
     private WebElement BtnCalc; // operator "=" button
 
     //symbols buttons:
     @FindBy(id = "BtnParanL")
     private WebElement BtnParanL; //left bracket "(" button
+    @FindBy(id = "BtnParanR")
+    private WebElement BtnParanR; //right bracket ")" button
 
     //fields:
     @FindBy(id = "input")
     private WebElement inputField;
 
-    //result values:
+    //check-boxes:
+    @FindBy(xpath = "//input[@value = 'rad']")
+    private WebElement checkBoxRad;
 
+    //result values:
     @FindBy(xpath = "//p[@title='34990']")
     private WebElement firstResult;
+    @FindBy(xpath = "//*[@id=\"histframe\"]/ul/li["+numOfResult+"]/p[1]")
+    private WebElement universalResult;
+    private final long numOfResult = 1;
+
+    //list of elements:
+    List<WebElement> consentList = driver.findElements(By.xpath("//button[@value = 'consent']"));
+    int consentListCount = consentList.size();
+    List<WebElement> consent2List = driver.findElements(By.xpath("//button[@aria-label = 'consent']"));
+    int consent2ListCount = consent2List.size();
 
 
     public MainPage() {
         driver.get(ConfigProvider.URL);
-        PageFactory.initElements(driver,  this);
-        consent.click(); //click "consent" after start MainPage
-        consent2.click(); // second "consent"
+        PageFactory.initElements(driver,this);
+        /*if(consentListCount < 1) {
+            System.out.println(consentListCount);
+        } else {
+            System.out.println("тест");
+            consent.click(); //click "consent" after start MainPage
+        }
+        if(consent2ListCount < 1) {
+            System.out.println(consent2ListCount);
+        } else {
+            System.out.println("тест");
+            consent2.click(); // second "consent"
+        }*/
     }
 
     public MainPage checkFirstCalculation(){ //check both the availability of buttons and the input field
@@ -85,7 +116,21 @@ public class MainPage extends BaseSeleniumPage {
         inputField.sendKeys("100/4)");
         BtnCalc.click();
         assertEquals("34990", firstResult.getAttribute("title"));
+        BtnClear.click();
         return this;
     }
+
+    public MainPage checkCosinusCalculation(){ //second task, check cosinus
+        BtnCos.click();
+        checkBoxRad.click();
+        BtnPi.click();
+        BtnParanR.click();
+        BtnCalc.click();
+        //assertEquals("-1", universalResult.getAttribute("title"));
+        universalResult.getAttribute("title");
+        System.out.println(universalResult.getAttribute("title"));
+        return this;
+    }
+
 
 }
