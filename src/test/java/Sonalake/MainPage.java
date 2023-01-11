@@ -88,9 +88,10 @@ public class MainPage extends BaseSeleniumPage {
     //result values:
     @FindBy(xpath = "//p[@title='34990']")
     private WebElement firstResult;
-    @FindBy(xpath = "//*[@id=\"histframe\"]/ul/li["+numOfResult+"]/p[1]")
-    private WebElement universalResult;
-    private final long numOfResult = 1;
+
+    @FindBy(xpath = "//p[@title='-1']")
+    private WebElement secondResult;
+
 
     public MainPage() {
         driver.get(ConfigProvider.URL);
@@ -99,7 +100,7 @@ public class MainPage extends BaseSeleniumPage {
         checkConsentSecondExist();
     }
 
-     public MainPage checkConsentFirstExist(){
+     private MainPage checkConsentFirstExist(){
 
         int consentListCount = consentList.size();
         if(consentListCount == 1) {
@@ -110,7 +111,7 @@ public class MainPage extends BaseSeleniumPage {
          return this;
     }
 
-    public MainPage checkConsentSecondExist(){
+    private MainPage checkConsentSecondExist(){
 
         int consentList2Count = consentList2.size();
         if(consentList2Count == 1) {
@@ -120,6 +121,7 @@ public class MainPage extends BaseSeleniumPage {
         }
         return this;
     }
+
 
     public MainPage checkFirstCalculation(){ //check both the availability of buttons and the input field
         Btn3.click();
@@ -132,7 +134,14 @@ public class MainPage extends BaseSeleniumPage {
         BtnParanL.click();
         inputField.sendKeys("100/4)");
         BtnCalc.click();
+        //String resultFromFieldString = inputField.getAttribute("value");
+        //int resultFromField = Integer.valueOf(resultFromFieldString);
+
+        //System.out.println(resultFromField);
+        //int calculationWithParentheses = (1 + 1) + 3 * (2 + 5);
+        //System.out.println(calculationWithParentheses); // prints 23
         assertEquals("34990", firstResult.getAttribute("title"));
+        System.out.println(firstResult.getAttribute("title"));
         BtnClear.click();
         return this;
     }
@@ -143,9 +152,8 @@ public class MainPage extends BaseSeleniumPage {
         BtnPi.click();
         BtnParanR.click();
         BtnCalc.click();
-        //assertEquals("-1", universalResult.getAttribute("title"));
-        universalResult.getAttribute("title");
-        System.out.println(universalResult.getAttribute("title"));
+        assertEquals("-1", secondResult.getAttribute("title"));
+        System.out.println(secondResult.getAttribute("title"));
         return this;
     }
 
