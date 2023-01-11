@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b6ddbe3-829d-4a58-9808-83c6bf3bb181" name="Changes" comment="first Task">
+    <list default="true" id="0b6ddbe3-829d-4a58-9808-83c6bf3bb181" name="Changes" comment="second Task">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hs_err_pid17616.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hs_err_pid22072.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hs_err_pid24292.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Sonalake/MainPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Sonalake/MainPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -196,7 +193,7 @@
       <workItem from="1673308974604" duration="17750000" />
       <workItem from="1673328739755" duration="6381000" />
       <workItem from="1673336897192" duration="9166000" />
-      <workItem from="1673398858685" duration="20000" />
+      <workItem from="1673398858685" duration="6849000" />
     </task>
     <task id="LOCAL-00001" summary="first Task">
       <created>1673323321092</created>
@@ -219,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673336843245</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="second Task">
+      <created>1673398892132</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1673398892132</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,6 +242,17 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first Task" />
-    <option name="LAST_COMMIT_MESSAGE" value="first Task" />
+    <MESSAGE value="second Task" />
+    <option name="LAST_COMMIT_MESSAGE" value="second Task" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/Sonalake/MainPage.java</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

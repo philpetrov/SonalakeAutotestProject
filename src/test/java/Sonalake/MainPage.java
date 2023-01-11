@@ -92,49 +92,34 @@ public class MainPage extends BaseSeleniumPage {
     private WebElement universalResult;
     private final long numOfResult = 1;
 
-    //list of elements:
-    /*List<WebElement> consentList = driver.findElements(By.xpath("//button[@value = 'consent']"));
-    int consentListCount = consentList.size();
-    List<WebElement> consent2List = driver.findElements(By.xpath("//button[@aria-label = 'consent']"));
-    int consent2ListCount = consent2List.size();*/
-
-
-
     public MainPage() {
         driver.get(ConfigProvider.URL);
         PageFactory.initElements(driver,this);
-
-        WebElement[] consentValue = {consent, consent2};
-
-        int consentListCount = consentList.size();
-        int consentListCount2 = consentList2.size();
-        int[] consentListCountArr = {consentListCount, consentListCount2};
-
-        checkConsentExist(consentListCountArr[0], consent);
-
-        /*int consentListCount2 = consentList2.size();
-
-        if(consentListCount2 < 1) { //if
-            System.out.println(consentListCount2);
-        } else {
-            //System.out.println("тест");
-            consent2.click(); // second "consent"
-        }*/
+        checkConsentFirstExist();
+        checkConsentSecondExist();
     }
 
-     public MainPage checkConsentExist(int consentListCountArr, WebElement consent){
+     public MainPage checkConsentFirstExist(){
 
-        if(consentListCountArr < 1) {
-            System.out.println(consentListCountArr);
-        } else {
-            //System.out.println("тест");
+        int consentListCount = consentList.size();
+        if(consentListCount == 1) {
             consent.click(); //click "consent"
-            System.out.println(consent);
-            System.out.println(consentListCountArr);
+        } else if (consentListCount == 0) {
+            System.out.println("Consent doesn't exist. Go next step");
         }
          return this;
     }
 
+    public MainPage checkConsentSecondExist(){
+
+        int consentList2Count = consentList2.size();
+        if(consentList2Count == 1) {
+            consent2.click(); //click 2 "consent"
+        } else if (consentList2Count == 0) {
+            System.out.println("Consent2 doesn't exist. Go next step");
+        }
+        return this;
+    }
 
     public MainPage checkFirstCalculation(){ //check both the availability of buttons and the input field
         Btn3.click();
