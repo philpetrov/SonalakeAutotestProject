@@ -9,17 +9,29 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import readProperties.ConfigProvider;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
 
-public class MainPage<numOfResult> extends BaseSeleniumPage {
+public class MainPage extends BaseSeleniumPage {
+
+
+    //List<WebElement> consentList = driver.findElements(By.xpath("//button[@value = 'consent']")).size();
+
 
     //Numbers buttons:
     @FindBy(xpath = "//button[@value = 'consent']")
     private WebElement consent;
+    @FindBy(xpath = "//button[@value = 'consent']")
+    private List<WebElement> consentList;
     @FindBy(xpath = "//button[@aria-label = 'Consent']")
     private WebElement consent2;
+    @FindBy(xpath = "//button[@aria-label = 'Consent']")
+    private List<WebElement> consentList2;
+
     @FindBy(id = "Btn0")
     private WebElement Btn0;
     @FindBy(id = "Btn1")
@@ -81,28 +93,48 @@ public class MainPage<numOfResult> extends BaseSeleniumPage {
     private final long numOfResult = 1;
 
     //list of elements:
-    List<WebElement> consentList = driver.findElements(By.xpath("//button[@value = 'consent']"));
+    /*List<WebElement> consentList = driver.findElements(By.xpath("//button[@value = 'consent']"));
     int consentListCount = consentList.size();
     List<WebElement> consent2List = driver.findElements(By.xpath("//button[@aria-label = 'consent']"));
-    int consent2ListCount = consent2List.size();
+    int consent2ListCount = consent2List.size();*/
+
 
 
     public MainPage() {
         driver.get(ConfigProvider.URL);
         PageFactory.initElements(driver,this);
-        /*if(consentListCount < 1) {
-            System.out.println(consentListCount);
+
+        WebElement[] consentValue = {consent, consent2};
+
+        int consentListCount = consentList.size();
+        int consentListCount2 = consentList2.size();
+        int[] consentListCountArr = {consentListCount, consentListCount2};
+
+        checkConsentExist(consentListCountArr[0], consent);
+
+        /*int consentListCount2 = consentList2.size();
+
+        if(consentListCount2 < 1) { //if
+            System.out.println(consentListCount2);
         } else {
-            System.out.println("тест");
-            consent.click(); //click "consent" after start MainPage
-        }
-        if(consent2ListCount < 1) {
-            System.out.println(consent2ListCount);
-        } else {
-            System.out.println("тест");
+            //System.out.println("тест");
             consent2.click(); // second "consent"
         }*/
     }
+
+     public MainPage checkConsentExist(int consentListCountArr, WebElement consent){
+
+        if(consentListCountArr < 1) {
+            System.out.println(consentListCountArr);
+        } else {
+            //System.out.println("тест");
+            consent.click(); //click "consent"
+            System.out.println(consent);
+            System.out.println(consentListCountArr);
+        }
+         return this;
+    }
+
 
     public MainPage checkFirstCalculation(){ //check both the availability of buttons and the input field
         Btn3.click();
