@@ -17,14 +17,14 @@ abstract public class BaseSeleniumTest {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize(); //for full screan
-        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         BaseSeleniumPage.setDriver(driver);
     }
 
     @After
     public void tearDown(){
-        //driver.close(); //close browser
-        //driver.quit(); //quit driver
+        driver.close(); //close browser
+        driver.quit(); //quit driver
     }
 }

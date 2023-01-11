@@ -55,6 +55,8 @@ public class MainPage extends BaseSeleniumPage {
     private WebElement BtnPlus; //plus "+" button
     @FindBy(id = "BtnCos")
     private WebElement BtnCos; //cosinus "cos" button
+    @FindBy(id = "BtnSqrt")
+    private WebElement BtnSqrt; //Sqrt "BtnSqrt" button
     @FindBy(id = "BtnPi")
     private WebElement BtnPi; //"pi" button
     @FindBy(id = "BtnClear")
@@ -72,17 +74,25 @@ public class MainPage extends BaseSeleniumPage {
     @FindBy(id = "input")
     private WebElement inputField;
 
-    //check-boxes:
+    //check-box and list of hist:
     @FindBy(xpath = "//input[@value = 'rad']")
     private WebElement checkBoxRad;
+    @FindBy(id = "hist")
+    private WebElement listOfHist;
 
     //result values:
     @FindBy(xpath = "//p[@title='34990']")
     private WebElement firstResult;
-
+    @FindBy(xpath = "//p[@data-inp ='35*999+(100/4)']")
+    private WebElement firstInputHist;
     @FindBy(xpath = "//p[@title='-1']")
     private WebElement secondResult;
-
+    @FindBy(xpath = "//p[@data-inp ='cos(pi)']")
+    private WebElement secondInputHist;
+    @FindBy(xpath = "//p[@title='9']")
+    private WebElement thirdResult;
+    @FindBy(xpath = "//p[@data-inp ='sqrt(81)']")
+    private WebElement thirdInputHist;
 
     public MainPage() {
         driver.get(ConfigProvider.URL);
@@ -96,7 +106,7 @@ public class MainPage extends BaseSeleniumPage {
         if(consentListCount == 1) {
             consent.click(); //click "consent"
         } else if (consentListCount == 0) {
-            System.out.println("Consent doesn't exist. Go next step");
+            System.out.println("Consent doesn't exist. Go to the next step");
         }
          return this;
     }
@@ -106,7 +116,7 @@ public class MainPage extends BaseSeleniumPage {
         if(consentList2Count == 1) {
             consent2.click(); //click 2 "consent"
         } else if (consentList2Count == 0) {
-            System.out.println("Consent2 doesn't exist. Go next step");
+            System.out.println("Consent2 doesn't exist. Go to the next step");
         }
         return this;
     }
@@ -120,7 +130,7 @@ public class MainPage extends BaseSeleniumPage {
         return this;
     }
 
-
+    //1. Calculate 35*999+(100/4)= and assert the correct result 34990.
     public MainPage checkFirstCalculation(){ //check both the availability of buttons and the input field
         Btn3.click();
         Btn5.click();
@@ -132,22 +142,48 @@ public class MainPage extends BaseSeleniumPage {
         BtnParanL.click();
         inputField.sendKeys("100/4)");
         BtnCalc.click();
-        timeWait(1000);
+        timeWait(5000);
         assertEquals("34990", inputField.getAttribute("value")); //assert from insert field
         assertEquals("34990", firstResult.getAttribute("title")); //assert from history result (Devtools)
         BtnClear.click();
         return this;
     }
 
-    public MainPage checkCosinusCalculation(){ //second task, check cosinus
+    //2. Calculate cos(pi) with the rad radio button and assert the correct result -1.
+    public MainPage checkCosinusCalculation(){
         BtnCos.click();
         checkBoxRad.click();
         BtnPi.click();
         BtnParanR.click();
         BtnCalc.click();
-        timeWait(1000);
+        timeWait(5000);
         assertEquals("-1", inputField.getAttribute("value")); //assert from insert field
         assertEquals("-1", secondResult.getAttribute("title")); //assert from history result (Devtools)
+        BtnClear.click();
+        return this;
+    }
+
+    // 3. Calculate sqrt(81) and assert the correct result 9.
+    public MainPage checkSqrtCalculation(){
+        Btn8.click();
+        Btn1.click();
+        BtnSqrt.click();
+        BtnCalc.click();
+        timeWait(5000);
+        assertEquals("9", inputField.getAttribute("value")); //assert from insert field
+        assertEquals("9", thirdResult.getAttribute("title")); //assert from history result (Devtools)
+        BtnClear.click();
+        return this;
+    }
+
+    //4. Press history dropdown and assert that the list contains the 3 operations
+    //executed e.g. 35*999+(100/4)=, cos(pi), sqrt(81)
+    public MainPage checkHistInCalc(){
+        listOfHist.click();
+        timeWait(5000);
+        assertEquals("35*999+(100/4)", firstInputHist.getAttribute("data-inp")); // assert 1 res from list
+        assertEquals("cos(pi)", secondInputHist.getAttribute("data-inp")); // assert 1 res from list
+        assertEquals("sqrt(81)", thirdInputHist.getAttribute("data-inp")); // assert 1 res from list
         return this;
     }
 
