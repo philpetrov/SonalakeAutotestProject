@@ -4,23 +4,14 @@
 package Sonalake;
 
 import core.BaseSeleniumPage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import readProperties.ConfigProvider;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
-
 import static org.junit.Assert.assertEquals;
 
 public class MainPage extends BaseSeleniumPage {
-
-
-    //List<WebElement> consentList = driver.findElements(By.xpath("//button[@value = 'consent']")).size();
-
 
     //Numbers buttons:
     @FindBy(xpath = "//button[@value = 'consent']")
@@ -100,8 +91,7 @@ public class MainPage extends BaseSeleniumPage {
         checkConsentSecondExist();
     }
 
-     private MainPage checkConsentFirstExist(){
-
+     private MainPage checkConsentFirstExist(){ //for close or ignore second first privacy windows
         int consentListCount = consentList.size();
         if(consentListCount == 1) {
             consent.click(); //click "consent"
@@ -111,13 +101,21 @@ public class MainPage extends BaseSeleniumPage {
          return this;
     }
 
-    private MainPage checkConsentSecondExist(){
-
+    private MainPage checkConsentSecondExist(){ //for close or ignore second start privacy windows
         int consentList2Count = consentList2.size();
         if(consentList2Count == 1) {
             consent2.click(); //click 2 "consent"
         } else if (consentList2Count == 0) {
             System.out.println("Consent2 doesn't exist. Go next step");
+        }
+        return this;
+    }
+
+    private MainPage timeWait(int Millis){ //for waiting
+        try {
+            Thread.sleep(Millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
         return this;
     }
@@ -134,14 +132,9 @@ public class MainPage extends BaseSeleniumPage {
         BtnParanL.click();
         inputField.sendKeys("100/4)");
         BtnCalc.click();
-        //String resultFromFieldString = inputField.getAttribute("value");
-        //int resultFromField = Integer.valueOf(resultFromFieldString);
-
-        //System.out.println(resultFromField);
-        //int calculationWithParentheses = (1 + 1) + 3 * (2 + 5);
-        //System.out.println(calculationWithParentheses); // prints 23
-        assertEquals("34990", firstResult.getAttribute("title"));
-        System.out.println(firstResult.getAttribute("title"));
+        timeWait(1000);
+        assertEquals("34990", inputField.getAttribute("value")); //assert from insert field
+        assertEquals("34990", firstResult.getAttribute("title")); //assert from history result (Devtools)
         BtnClear.click();
         return this;
     }
@@ -152,10 +145,10 @@ public class MainPage extends BaseSeleniumPage {
         BtnPi.click();
         BtnParanR.click();
         BtnCalc.click();
-        assertEquals("-1", secondResult.getAttribute("title"));
-        System.out.println(secondResult.getAttribute("title"));
+        timeWait(1000);
+        assertEquals("-1", inputField.getAttribute("value")); //assert from insert field
+        assertEquals("-1", secondResult.getAttribute("title")); //assert from history result (Devtools)
         return this;
     }
-
 
 }
